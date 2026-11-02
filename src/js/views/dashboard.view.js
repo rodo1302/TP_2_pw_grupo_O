@@ -1,9 +1,10 @@
+import { initialDatabase } from "../../data/db" with { type: "json" };
 export const viewDashboard = () => {
     // Range.createContextualFragment convierte el string HTML a DocumentFragment
     const htmlString = `
     <section class="seccion-cursos">
       <h2>Mis Cursos</h2>
-      <div class="contenedor-tarjetas">
+      <div id="tarjetas" class="contenedor-tarjetas">
 
         <a href="../unidades/ingles.html" class="enlace-tarjeta">
           <article class="tarjeta-curso">
@@ -18,7 +19,7 @@ export const viewDashboard = () => {
           </article>
         </a>
 
-        <a href="../unidades/aleman.html" class="enlace-tarjeta">
+        <a href="#unidadesAleman" class="enlace-tarjeta">
           <article class="tarjeta-curso">
             <input type="checkbox" name="aleman" id="aleman" class="disable">
             <label for="aleman" class="btn btn-rojo btn-chk">-</label>
@@ -76,6 +77,11 @@ export const viewDashboard = () => {
 }
 
 export const hydrateDashboardView = (view) => {
-    
-    // const enlaces = preventNavigationDefault(view);
+  // const contenedorTarjetas = view.querySelector("#tarjetas");
+
+  // initialDatabase.cursos.forEach(([codCurso,cursoData]) => {
+  //   const curso = {codCurso, ...cursoData};
+  //   const tarjeta = enlaceTarjeta(curso);
+  //   contenedorTarjetas.appendChild(tarjeta);
+  // });
 };
