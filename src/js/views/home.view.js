@@ -1,9 +1,7 @@
-export function viewHome() {
-  const fragmento = document.createDocumentFragment();
-
-  const temp = document.createElement("div");
-
-  temp.innerHTML = `
+// import { preventNavigationDefault } from "../componentes/navigator.js";
+export const viewHome = () => {
+    // Range.createContextualFragment convierte el string HTML a DocumentFragment
+    const htmlString = `
           <section class="hero">
         <div class="hero__copy">
           <p class="eyebrow">Aprender idiomas, sin presión</p>
@@ -14,7 +12,7 @@ export function viewHome() {
           </p>
 
           <div class="hero__actions">
-            <a href="./login/index.html" class="btn btn-verde">¡Comenzar ahora!</a>
+            <a href="#registro" class="btn btn-verde">¡Comenzar ahora!</a>
             <a href="#testimonios" class="btn btn-rojo">Ver opiniones</a>
           </div>
         </div>
@@ -74,11 +72,12 @@ export function viewHome() {
           <p class="eyebrow">Tu idioma te espera</p>
           <h2>Comienza hoy y construye tu próxima habilidad.</h2>
         </div>
-        <a href="./registrar/index.html" class="btn btn-verde">Inscribirme gratis</a>
+        <a href="#registro" class="btn btn-verde">Inscribirme gratis</a>
       </section>
-          `;
-  while (temp.firstChild) {
-    fragmento.appendChild(temp.firstChild);
-  }
-  return fragmento;
+          `
+    return document.createRange().createContextualFragment(htmlString)
 }
+
+export const hydrateHomeView = (view) => {
+    // const enlaces = preventNavigationDefault(view);
+};

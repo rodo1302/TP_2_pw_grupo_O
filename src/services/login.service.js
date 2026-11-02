@@ -17,6 +17,7 @@ export const registerUser = (nombre, password) => {
 
 export const loginUser = (nombre, password) => {
   const users = JSON.parse(localStorage.getItem("users")) || [];
+  console.log("Usuarios registrados:", users[0]);
   const user = users.find(
     (user) => user.nombre === nombre && user.password === password,
   );
