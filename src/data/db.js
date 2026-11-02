@@ -11,12 +11,8 @@ export const initialDatabase = {
       nivel: "inicial",
       leccionId: 1,
     },
-    xp: 500, // Inicia con 500 (resta 50 por error/pregunta o se recarga en el perfil)
     liga: "bronce",
     avatar: "../img/logo-lingo.svg",
-    saldoDolares: 0.0, // Dinero gastado o disponible
-    aPagar: 0.0, // Monto pendiente de pago (si acumula compras)
-    compras: [], // Historial de paquetes de XP comprados
   },
 
   // Estructura de Cursos, Niveles y Lecciones

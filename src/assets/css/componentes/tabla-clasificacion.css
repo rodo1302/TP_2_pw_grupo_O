@@ -1,0 +1,128 @@
+/* ==========================================================================
+   Principal del Dashboard 
+   ========================================================================== */
+body {
+  display: flex;
+  flex-direction: column;
+  /* overflow: hidden; */
+}
+
+.contendeor-principal {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.liga-actual {
+  display: flex;
+  justify-content: center;
+  gap: 0.8em;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.liga-actual p {
+  font-style: italic;
+  padding-bottom: 0.5em;
+}
+
+.titulo {
+  font-size: 2em;
+}
+
+.info-liga {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2em;
+  border-top: 2px solid var(--color-naranja-panda);
+  border-bottom: 2px solid var(--color-naranja-panda);
+  width: 100%;
+}
+
+.subtitulo {
+  color: var(--color-naranja-panda);
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.img-liga {
+  height: 4.5rem;
+}
+
+/* ==========================================================================
+    Tabla 
+   ========================================================================== */
+
+.tabla {
+  width: 100%;
+  max-width: 47rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  overflow-x: auto;
+}
+table {
+  table-layout: auto;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  border-collapse: collapse;
+}
+thead {
+  background-color: var(--color-naranja-panda);
+  border-color: var(--color-naranja-oscuro);
+}
+
+tbody {
+  font-weight: 500;
+}
+
+th,
+tr,
+td {
+  border: 1px solid var(--color-naranja-panda);
+  padding: 0.6em 0.8em;
+  font-size: 0.95rem;
+}
+.primero,
+.tercero,
+.segundo {
+  background-color: var(--color-amarillo-racha);
+}
+.usuario {
+  background-color: var(--color-verde-exito);
+  font-weight: bold;
+}
+
+@media screen and (max-width: 37em) {
+  th,
+  td {
+    padding: 0.5em 0.4em;
+    font-size: 0.85rem;
+  }
+
+  .liga-actual p {
+    margin-left: 0.5rem;
+  }
+}
+/* ==========================================================================
+    Otras ligas
+   ========================================================================== */
+
+.otras-ligas {
+  display: flex;
+  text-align: center;
+  gap: 1rem;
+  padding: 0.5rem 0.5rem;
+}
+
+.otras-ligas a {
+  font-size: 0.6rem;
+}

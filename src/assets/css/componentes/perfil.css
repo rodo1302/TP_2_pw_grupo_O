@@ -1,0 +1,219 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contenedor perfil */
+.contenedor-perfil {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 18.75rem 1fr;
+  width: 90%;
+  gap: 2vh;
+  margin: 2vh auto;
+  background-color: var(--color-bg);
+}
+
+.titulo-seccion {
+  margin-bottom: 2vh;
+}
+
+.contenedor-perfil > aside,
+.contenedor-perfil > section {
+  padding: 4vh;
+}
+
+/* Estilos tarjeta perfil */
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4vh;
+  /* justify-content: space-between; */
+  align-items: center;
+  background-color: var(--color-superficie);
+  text-align: center;
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radius-boton);
+}
+
+.tarjeta-badges {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1vh;
+  border: 2px solid var(--color-naranja-panda);
+  border-radius: var(--radius-boton);
+  width: 100%;
+}
+
+.imagen-perfil {
+  width: 15vh;
+}
+
+.nombre-perfil {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.usuario-perfil {
+  font-style: italic;
+  font-size: 0.8em;
+  color: var(--color-texto-grisado);
+}
+
+/* Estilos Configuracion cuenta */
+.config-cuenta {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  width: 100%;
+}
+
+.config-cuenta label {
+  display: block;
+  margin-bottom: 2vh;
+}
+
+.form-perfil {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2vh;
+}
+
+.form-perfil select,
+.form-perfil input[type="email"],
+.contrasenia-input input,
+.modal-dialog input {
+  width: 100%;
+  padding: 0.63rem 0.88rem;
+  font-family: var(--fuente-base);
+  font-size: 0.95rem;
+  color: var(--color-texto);
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radius-boton);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.contrasenia-input {
+  display: grid;
+  gap: 6%;
+  grid-template-columns: repeat(auto-fill, 47%);
+}
+
+.btn-wrapper-form {
+  display: flex;
+  gap: 2vh;
+  justify-content: space-evenly;
+}
+
+.modal-dialog[open] {
+  min-width: 18.75rem;
+  width: 30%;
+  min-height: 30vh;
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-naranja-panda);
+  border-bottom: 3px solid var(--color-naranja-oscuro);
+  border-right: 3px solid var(--color-naranja-oscuro);
+  border-radius: var(--radius-tarjeta);
+  padding: 1.5vh;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+}
+
+/* Efecto de fondo oscuro al abrir el modal */
+.modal-dialog::backdrop {
+  backdrop-filter: blur(2px);
+}
+
+/* Visibilidad del mensaje dentro del dialog */
+.modal-dialog .msj-guardar,
+.form-contrasenia {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  align-items: center;
+}
+
+/* ==========================================================================
+   Adaptación Mobile del contenedor de perfil
+   ========================================================================== */
+@media screen and (width < 768px) {
+  .contenedor-perfil {
+    grid-template-columns: 1fr;
+  }
+
+  .tarjeta {
+    display: grid;
+    grid-template-areas:
+      "t t t t"
+      "imagen nombre antig nivel";
+  }
+
+  .titulo-seccion {
+    margin-bottom: 0;
+    grid-area: t;
+  }
+
+  .imagen-perfil {
+    grid-area: imagen;
+  }
+
+  .nombre-perfil {
+    grid-area: nombre;
+  }
+
+  .antig {
+    grid-area: antig;
+  }
+
+  .nivel {
+    grid-area: nivel;
+  }
+
+  .tarjeta > * {
+    height: 100%;
+  }
+}
+
+@media screen and (width < 600px) {
+  .tarjeta {
+    grid-template-areas: none;
+    grid-template-columns: 1fr;
+  }
+
+  .tarjeta > * {
+    grid-area: auto;
+  }
+
+  .imagen-perfil {
+    display: none;
+  }
+
+  .btn-wrapper-form {
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
+    align-items: stretch;
+  }
+
+  .btn-guardar,
+  .btn-salir {
+    max-width: none;
+  }
+
+  .contrasenia-input {
+    grid-template-columns: 1fr;
+  }
+}

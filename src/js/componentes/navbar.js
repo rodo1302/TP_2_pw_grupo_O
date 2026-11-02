@@ -8,15 +8,20 @@ export const navbar = (tipo) => {
 
   headerTipo.replaceChildren();
 
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
   switch (tipo) {
     case "home":
       headerTipo.appendChild(navbarHome());
       break;
-    case "main":
-      headerTipo.appendChild(navbarMain());
+    case "dashboard":
+      headerTipo.appendChild(navbarMain(currentUser));
       break;
     case "cursos":
-      headerTipo.appendChild(navbarCursos());
+      headerTipo.appendChild(navbarCursos(currentUser));
+      break;
+    case "perfil":
+      headerTipo.appendChild(navbarPerfil(currentUser));
       break;
     default:
       console.warn(`No se encontró un navbar para el tipo "${tipo}".`);
@@ -26,7 +31,7 @@ export const navbar = (tipo) => {
     const fragmento = document.createDocumentFragment();
 
     const logoLink = document.createElement("a");
-    logoLink.href = "#cursos";
+    logoLink.href = "#home";
     logoLink.classList.add("logo-marca");
 
     const logoImg = document.createElement("img");
@@ -34,12 +39,17 @@ export const navbar = (tipo) => {
     logoImg.alt = "Lingo Panda";
     logoImg.classList.add("img-logo");
 
-    fragmento.append(logoLink, logoImg);
+    const logoSpan = document.createElement("span");
+    logoSpan.classList.add("nombre-brand");
+    logoSpan.textContent = "LingoPanda";
+    logoLink.append(logoImg, logoSpan);
+
+    fragmento.append(logoLink);
 
     return fragmento;
   }
 
-  function navbarMain() {
+  function navbarDashboard() {
     const fragmento = document.createDocumentFragment();
 
     const logoLink = document.createElement("a");
@@ -81,9 +91,13 @@ export const navbar = (tipo) => {
     });
     nav.appendChild(menuList);
 
-    const logoutBtn = document.createElement("a");
-    logoutBtn.href = "#login";
+    const logoutBtn = document.createElement("button");
     logoutBtn.classList.add("btn", "btn-rojo");
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("currentUser");
+      window.location.hash = "#home";
+    });
 
     const logoutImg = document.createElement("img");
     logoutImg.src = "./src/assets/img/cerrar-sesion.svg";

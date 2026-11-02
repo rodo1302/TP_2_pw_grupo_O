@@ -1,0 +1,173 @@
+/* ==========================================================================
+   Principal del unidades (Grilla de 2 columnas)
+   ========================================================================== */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.unidades-layout {
+  max-width: 68.75rem;
+  width: 100%;
+  flex: 1;
+  margin: 0 auto;
+}
+
+.seccion-unidades {
+  margin: 4vh 2vh;
+}
+
+.titulo-unidades {
+  background-color: var(--color-superficie);
+  border-radius: var(--radius-tarjeta);
+  padding: 2vh;
+  margin-bottom: 2vh;
+  border: 2px solid var(--color-borde-inferior);
+  /* border-bottom: 5px solid var(--color-borde-inferior); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.titulo-unidades h2 {
+  background-color: var(--color-naranja-panda);
+  color: var(--color-superficie);
+  font-size: 0.85em;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03rem;
+}
+
+.titulo-unidades h3 {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+/* Grilla interna de Tarjetas de Cursos */
+.contenedor-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(25%, 1fr));
+  gap: 2vh;
+}
+
+/* Enlace envolvente */
+.enlace-tarjeta {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Tarjeta de Curso con relieve 3D */
+.tarjeta-unidad {
+  min-height: 11.56rem;
+  background-color: var(--color-superficie);
+  border: 2px solid var(--color-borde);
+  border-bottom: 5px solid var(--color-borde-inferior);
+  border-radius: var(--radius-tarjeta);
+  padding: 1.5vh;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  transition:
+    transform 0.1s ease,
+    border-color 0.1s ease,
+    background-color 0.1s ease;
+}
+
+.tarjeta-unidad.activa {
+  border-color: var(--color-naranja-panda);
+  border-bottom-color: var(--color-naranja-oscuro);
+  background-color: var(--color-superficie);
+}
+
+.tarjeta-unidad.bloqueada {
+  background-color: #f9fafb;
+  border-color: #e5e7eb;
+  border-bottom-color: #d1d5db;
+  opacity: 0.8;
+}
+
+.status-badge {
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.38rem;
+}
+
+.status-badge.verde {
+  color: #16a34a;
+}
+
+.status-badge.naranja {
+  color: #ff7a00;
+}
+
+.status-badge.gris {
+  color: #6b7280;
+}
+
+.unidad-titulo {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--color-texto);
+  margin: 0.25rem 0;
+}
+
+.unidad-estado-texto {
+  font-size: 0.85rem;
+  color: var(--color-texto-grisado);
+  font-weight: 500;
+}
+
+.unidad-estado-texto.resaltado {
+  color: var(--color-naranja-panda);
+  font-weight: 700;
+}
+
+.boton-continuar {
+  color: var(--color-superficie);
+  background-color: var(--color-naranja-panda);
+  border-color: var(--color-naranja-oscuro);
+  border-bottom-color: var(--color-naranja-oscuro);
+}
+
+.boton-continuar:active,
+.btn-amarillo:active,
+.btn-verde:active {
+  border-bottom-width: 4px;
+  border-color: transparent;
+}
+
+.info-unidad p {
+  font-size: 0.85em;
+  color: var(--color-texto-grisado);
+  margin-top: 0.13rem;
+}
+
+.info-unidad p strong {
+  color: var(--color-texto);
+}
+
+/* Ocación por defecto del icono en escritorio (Oculto si preferís solo texto) */
+.nav-icono {
+  display: none;
+}
+
+.unidades-icon {
+  width: 1rem;
+  height: auto;
+}
+
+@media screen and (width <600px) {
+  .contenedor-tarjetas {
+    display: flex;
+    flex-direction: column;
+  }
+}
