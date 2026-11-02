@@ -1,4 +1,7 @@
 import { loginUser } from "../../services/login.service.js";
+import { navigateTo } from "../utils/navigator.js";
+import { loginFormHandler } from "../utils/formHandler.js";
+
 export const viewLogin = () => {
     const htmlString = `
     <form id="loginForm" class="login-form">
@@ -20,26 +23,5 @@ export const viewLogin = () => {
 
 export const hydrateLoginView = (view) => {
     const loginForm = view.querySelector("#loginForm");
-    if (loginForm) {
-        loginForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const data = new FormData(e.target);
-            const result = loginUser(
-                data.get("usuario"), data.get("contrasenia")
-            );
-            if (!result.success) {
-                let errorMessage = view.querySelector("#error-message");
-                if (!errorMessage) {
-                    const btnSubmit = view.querySelector("#btnSubmit");
-                    const msjError = document.createElement('p');
-                    msjError.classList.add('error-message');
-                    msjError.setAttribute('id', 'error-message');
-                    msjError.textContent = result.message;
-                    btnSubmit.after(msjError);
-                }
-            } else{
-                window.location.hash = "dashboard";
-            }
-        });
-    }
+    loginFormHandler(loginForm, view);
 };

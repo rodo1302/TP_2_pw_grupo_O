@@ -40,7 +40,7 @@ export const view = (tipo) => {
       break;
     case "dashboard":
       css.href = "./src/assets/css/viewdashboard/view.css";
-      viewTipo.classList.add("dashboard-view");
+      viewTipo.classList.add("dashboard-layout");
       viewTipo.appendChild(viewDashboard());
       break;
     default:

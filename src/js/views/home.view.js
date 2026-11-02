@@ -1,4 +1,4 @@
-// import { preventNavigationDefault } from "../componentes/navigator.js";
+// import { preventNavigationDefault } from ;
 export const viewHome = () => {
     // Range.createContextualFragment convierte el string HTML a DocumentFragment
     const htmlString = `

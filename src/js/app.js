@@ -2,7 +2,7 @@ import { navbar } from "./componentes/navbar.js";
 import { view } from "./componentes/view.js";
 import { footer } from "./componentes/footer.js";
 import { isLoggedIn } from "../services/login.service.js";
-import { navigateTo } from "./componentes/navigator.js";
+import { navigateTo } from "./utils/navigator.js";
 
 function router() {
 
