@@ -1,0 +1,388 @@
+/* ---- CSS global --------*/
+
+:root {
+  --color-naranja-panda: #ff7a00; /* Color principal  */
+  --color-naranja-oscuro: #e06300; /* Borde inferior  */
+  --color-rojo-fuego: #ff4b4b; /* Acento / Vidas / Errores */
+  --color-rojo-oscuro: #ea2b2b; /* Borde inferior del rojo */
+  --color-amarillo-racha: #ffb800; /* Resalte / Rachas / Estrellas */
+  --color-amarillo-oscuro: #d99b00; /* Borde inferior del amarillo */
+  --color-verde-exito: #58cc02; /* Respuestas correctas / Avance */
+  --color-verde-oscuro: #46a302; /* Borde inferior del verde */
+
+  /* Fondos, Textos y Detalles */
+  --color-bg: #fff9f5; /* Blanco cálido con matiz naranja suave */
+  --color-superficie: #ffffff; /* Tarjetas y contenedores */
+  --color-texto: #3c3c3c; /* Gris oscuro antideslumbrante */
+  --color-texto-grisado: #afafaf; /* Subtextos y elementos deshabilitados */
+  --color-borde: #e5e5e5; /* Bordes neutros */
+  --color-borde-inferior: #d6d6d6; /* Borde para tarjetas neutras */
+
+  /* Radios de borde característicos de Duolingo */
+  --radius-boton: 0.75rem;
+  --radius-tarjeta: 1rem;
+
+  --fuente-base:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--fuente-base);
+  font-size: 1rem;
+  color: var(--color-texto);
+  background-color: var(--color-bg);
+}
+
+a {
+  color: var(--color-naranja-panda);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  opacity: 0.85;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* ==========================================================================
+   Botones
+   ========================================================================== */
+
+/*----clase global btn---------*/
+
+.btn {
+  font-family: var(--fuente-base);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: var(--radius-boton);
+  border: 2px solid;
+  border-bottom-width: 4px;
+  cursor: pointer;
+  transition:
+    transform 0.1s ease,
+    border-color 0.1s ease,
+    background-color 0.1s ease;
+}
+
+.btn:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+/*-----Clase especificas por color y tipo ----------*/
+
+.btn-nav {
+  color: var(--color-texto);
+  background-color: var(--color-superficie);
+  border-color: var(--color-borde);
+}
+.btn-verde {
+  text-align: center;
+  color: #ffffff;
+  background-color: var(--color-verde-exito);
+  border-color: var(--color-verde-oscuro);
+}
+
+.btn-amarillo {
+  text-align: center;
+  color: #ffffff;
+  background-color: var(--color-amarillo-racha);
+  border-color: var(--color-amarillo-oscuro);
+}
+
+.btn-rojo {
+  text-align: center;
+  background-color: var(--color-superficie);
+  color: var(--color-rojo-oscuro);
+  border-color: var(--color-rojo-fuego);
+}
+
+.btn-nav:hover {
+  background-color: var(--color-bg);
+  border-color: var(--color-borde-inferior);
+}
+
+.btn-verde:hover {
+  background-color: var(--color-naranja-panda);
+  border-color: var(--color-naranja-oscuro);
+  border-bottom-color: var(--color-naranja-oscuro);
+}
+
+.btn-amarillo:hover {
+  background-color: var(--color-naranja-panda);
+  border-color: var(--color-naranja-oscuro);
+  border-bottom-color: var(--color-naranja-oscuro);
+}
+
+.btn-rojo:hover {
+  color: var(--color-superficie);
+  border-color: var(--color-rojo-fuego);
+  border-bottom-color: var(--color-rojo-oscuro);
+  background-color: var(--color-rojo-fuego);
+}
+
+.btn-nav:active {
+  background-color: var(--color-naranja-panda);
+  border-color: var(--color-naranja-oscuro);
+  border-bottom-color: var(--color-naranja-oscuro);
+}
+
+/* Estado Activo para el botón seleccionado */
+.btn-nav.activo {
+  color: #ffffff;
+  background-color: var(--color-naranja-panda);
+  border-color: var(--color-naranja-oscuro);
+  border-bottom-color: var(--color-naranja-oscuro);
+}
+
+/*---img boton sali ---------*/
+
+.img-icono-salir {
+  width: 1rem;
+  height: 1rem;
+  stroke: currentColor; /* Hereda el color del texto del botón automáticamente */
+}
+
+/*---------------------------------------------------------------------------------*/
+
+/* ==========================================================================
+   Navegación / Header Fijo
+   ========================================================================== */
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-superficie);
+  border-bottom: 2px solid var(--color-borde);
+  padding: 1em 2em;
+  z-index: 1000;
+  position: sticky;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.logo-marca {
+  display: flex;
+  align-items: center;
+  gap: 0.63rem;
+  text-decoration: none;
+}
+
+.img-logo {
+  height: 2.63rem;
+  width: 2.38rem;
+  object-fit: contain;
+}
+
+.nombre-brand {
+  font-size: 1.35em;
+  font-weight: 800;
+  color: var(--color-naranja-panda);
+}
+
+.descripcion-brand {
+  font-style: italic;
+}
+
+.menu-enlaces {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.indicadores-header {
+  display: flex;
+  align-items: center;
+  gap: 0.63rem;
+  background-color: var(--color-bg);
+  padding: 0.38rem 0.88rem;
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radius-boton);
+  font-size: 0.9em;
+}
+
+.stat-item strong {
+  color: var(--color-texto);
+}
+
+.stat-item.racha strong {
+  color: var(--color-rojo-fuego);
+}
+
+.stat-item.xp strong {
+  color: var(--color-amarillo-oscuro);
+}
+
+.separador {
+  color: var(--color-texto-grisado);
+  font-weight: 300;
+}
+
+@media screen and (max-width: 768px) {
+  .encabezado {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}
+
+/* ==========================================================================
+   Footer Principal
+   ========================================================================== */
+
+.footer-principal {
+  background-color: var(--color-superficie);
+  border-top: 2px solid var(--color-borde);
+  padding: 0.5rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 100%;
+}
+
+.marca-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.logo-footer {
+  font-size: 1.25em;
+  color: var(--color-naranja-panda);
+}
+
+.marca-footer span {
+  font-size: 0.85em;
+  font-style: italic;
+  color: var(--color-texto-grisado);
+}
+
+.links-footer {
+  display: flex;
+  gap: 1rem;
+}
+
+.links-footer a {
+  font-size: 0.9em;
+  font-weight: bold;
+  color: var(--color-naranja-oscuro);
+  transition: color 0.15s ease;
+}
+
+.links-footer a:hover {
+  color: var(--color-naranja-panda);
+}
+
+.copyright-footer {
+  flex-basis: 100%;
+  text-align: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--color-borde);
+  color: var(--color-texto-grisado);
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+  .footer-principal {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
+   Adaptación Mobile (Pantallas de menos de 768px)
+   ========================================================================== */
+
+@media screen and (max-width: 768px) {
+  /* El header superior solo mantiene el Logo, Boton salir y los Indicadores */
+
+  .encabezado {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "logo logo"
+      "btn-salir indicadores";
+    justify-items: center;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .logo-marca {
+    grid-area: logo;
+    justify-content: center;
+  }
+
+  .encabezado > .btn-rojo {
+    grid-area: btn-salir;
+    justify-self: start;
+  }
+
+  .indicadores-header {
+    grid-area: indicadores;
+    justify-self: start;
+    margin: 0;
+  }
+
+  /* Transformamos el menú a Barra inferior */
+  .menu-enlaces {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-superficie);
+    border-top: 2px solid var(--color-borde);
+    padding: 0.5rem 0.75rem;
+  }
+
+  .menu-enlaces li {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Ajuste de los botones para estilo App Móvil */
+  .btn-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 0.1rem;
+    padding: 0.38rem 0.75rem;
+    font-size: 1rem;
+  }
+
+  .nav-icono {
+    display: block;
+    font-size: 1.2em;
+  }
+
+  /* para que el menu no tape el footer */
+  body {
+    padding-bottom: 4.5rem;
+  }
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200">
+  <defs>
+    <linearGradient id="ffGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#3730a3" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.25" />
+    </filter>
+  </defs>
+  <circle cx="50" cy="50" r="45" fill="url(#ffGrad)" filter="url(#shadow)" />
+  <polygon points="32,32 52,50 32,68" fill="#ffffff" />
+  <polygon points="50,32 70,50 50,68" fill="#ffffff" />
+</svg>
