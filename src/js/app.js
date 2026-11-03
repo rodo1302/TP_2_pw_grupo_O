@@ -3,9 +3,9 @@ import { view } from "./componentes/view.js";
 import { footer } from "./componentes/footer.js";
 import { isLoggedIn } from "../services/login.service.js";
 import { navigateTo } from "./utils/navigator.js";
+import { initUserDatabase } from "../services/login.service.js";
 
 function router() {
-
   const hash = window.location.hash?.split("#")[1];
 
   // Rutas publicas
@@ -42,4 +42,9 @@ function router() {
 }
 
 window.addEventListener("hashchange", router);
-window.addEventListener("DOMContentLoaded", router);
+window.addEventListener("DOMContentLoaded", ()=>{
+  initUserDatabase();
+  router()
+})
+
+

@@ -1,6 +1,4 @@
-import { loginUser } from "../../services/login.service.js";
-import { navigateTo } from "../utils/navigator.js";
-import { loginFormHandler } from "../utils/formHandler.js";
+import { loginFormHandler } from "../utils/loginFormHandler.js";
 
 export const viewLogin = () => {
     const htmlString = `

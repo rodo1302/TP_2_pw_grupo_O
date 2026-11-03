@@ -1,6 +1,6 @@
 import { viewHome } from "../views/home.view.js";
 import { viewLogin, hydrateLoginView } from "../views/login.view.js";
-import { viewDashboard } from "../views/dashboard.view.js";
+import { hydrateDashboardView, viewDashboard } from "../views/dashboard.view.js";
 
 export const view = (tipo) => {
   let css = document.querySelector("#viewStyles");
@@ -42,6 +42,8 @@ export const view = (tipo) => {
       css.href = "./src/assets/css/viewdashboard/view.css";
       viewTipo.classList.add("dashboard-layout");
       viewTipo.appendChild(viewDashboard());
+      setTimeout(() => {},10)
+      hydrateDashboardView(viewTipo)
       break;
     default:
       console.warn(`No se encontró una vista para el tipo "${tipo}".`);

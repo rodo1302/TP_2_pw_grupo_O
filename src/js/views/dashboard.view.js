@@ -1,12 +1,15 @@
-import { initialDatabase } from "../../data/db" with { type: "json" };
+import { initialDatabase } from "../../data/db.js";
+import { getLoggedUser } from "../../services/login.service.js";
+import { enlaceTarjeta } from "../componentes/enlaceTarjeta.js";
+
 export const viewDashboard = () => {
-    // Range.createContextualFragment convierte el string HTML a DocumentFragment
-    const htmlString = `
+  // Range.createContextualFragment convierte el string HTML a DocumentFragment
+  const htmlString = `
     <section class="seccion-cursos">
       <h2>Mis Cursos</h2>
       <div id="tarjetas" class="contenedor-tarjetas">
 
-        <a href="../unidades/ingles.html" class="enlace-tarjeta">
+        <!-- <a href="../unidades/ingles.html" class="enlace-tarjeta">
           <article class="tarjeta-curso">
             <input type="checkbox" name="ingles" id="ingles" class="disable">
             <label for="ingles" class="btn btn-rojo btn-chk">-</label>
@@ -43,7 +46,7 @@ export const viewDashboard = () => {
               <p><strong>Nivel:</strong> Inicial (HSK 1)</p>
             </div>
           </article>
-        </a>
+        </a> -->
 
         <input type="checkbox" name="mostrar" id="mostrar" class="mostrar-cursos">
         <label for="mostrar" class="btn btn-mostrar-cursos">Mostrar cursos</label>
@@ -73,15 +76,19 @@ export const viewDashboard = () => {
       </div>
     </aside>
     `
-    return document.createRange().createContextualFragment(htmlString)
+  return document.createRange().createContextualFragment(htmlString)
 }
 
 export const hydrateDashboardView = (view) => {
-  // const contenedorTarjetas = view.querySelector("#tarjetas");
+  const usuario = getLoggedUser();
+  if (!usuario) return;
+  const contenedorTarjetas = view.querySelector("#tarjetas");
+  const tarjetasCursos = []
 
-  // initialDatabase.cursos.forEach(([codCurso,cursoData]) => {
-  //   const curso = {codCurso, ...cursoData};
-  //   const tarjeta = enlaceTarjeta(curso);
-  //   contenedorTarjetas.appendChild(tarjeta);
-  // });
+  Object.entries(initialDatabase.cursos).forEach(([codCurso, cursoData]) => {
+    const curso = { codCurso, ...cursoData };
+    const tarjeta = enlaceTarjeta(curso, usuario);
+    tarjetasCursos.push(tarjeta)
+  });
+  contenedorTarjetas.prepend(...tarjetasCursos);
 };
