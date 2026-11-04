@@ -1,15 +1,15 @@
 import { viewHome } from "../views/home.view.js";
-import { viewLogin, hydrateLoginView } from "../views/login.view.js";
-import { hydrateDashboardView, viewDashboard } from "../views/dashboard.view.js";
+import { viewLogin } from "../views/login.view.js";
+import { viewRegistrar } from "../views/registrar.view.js";
+import { viewRecuperar } from "../views/recuperar.view.js";
+import { viewPerfil } from "../views/perfil.view.js";
+import { viewClasificacion } from "../views/clasificacion.view.js";
+import { viewDashboard } from "../views/dashboard.view.js";
+import { viewLecciones } from "../views/lecciones.view.js";
+import { viewLeccionInteractiva } from "../views/leccionInteractiva.view.js";
+import { viewContacto } from "../views/contacto.view.js";
 
-export const view = (tipo) => {
-  let css = document.querySelector("#viewStyles");
-  if (!css) {
-    css = document.createElement("link");
-    css.id = "viewStyles";
-    css.rel = "stylesheet";
-    document.head.appendChild(css);
-  }
+export const view = (tipo, params = new URLSearchParams()) => {
   const viewTipo = document.querySelector(`#app`);
 
   if (!viewTipo) {
@@ -18,47 +18,52 @@ export const view = (tipo) => {
   }
 
   viewTipo.replaceChildren();
-  viewTipo.className = ""; // Limpiar cualquier clase existente
-
+  viewTipo.className = "";
   switch (tipo) {
     case "home":
-      css.href = "./src/assets/css/viewhome/view.css";
       viewTipo.classList.add("home-page");
       viewTipo.appendChild(viewHome());
-      // hydrateHomeView(viewTipo); //hidrata todos los elementos interactivos de la vista home
       break;
     case "login":
-      css.href = "./src/assets/css/viewlogin/view.css";
+      // 🛠️ CORRECCIÓN: Aísla el layout del login para evitar que las reglas de home afecten al main compartido.
+      viewTipo.classList.add("login-main");
       viewTipo.appendChild(viewLogin());
-      hydrateLoginView(viewTipo); //hidrata todos los elementos interactivos de la vista login
       break;
     case "cursos":
-      viewTipo.appendChild(viewCursosPlaceholder());
+    case "dashboard":
+      viewTipo.appendChild(viewDashboard());
+      break;
+    case "unidades":
+      viewTipo.appendChild(viewLecciones(params.get("curso")));
+      break;
+    case "leccion-interactiva":
+      viewTipo.appendChild(
+        viewLeccionInteractiva(
+          params.get("curso") || "ingles",
+          params.get("nivel") || "inicial",
+          params.get("leccion") || 1,
+        ),
+      );
       break;
     case "perfil":
-      viewTipo.appendChild(viewPerfilPlaceholder());
+      viewTipo.appendChild(viewPerfil());
       break;
-    case "dashboard":
-      css.href = "./src/assets/css/viewdashboard/view.css";
-      viewTipo.classList.add("dashboard-layout");
-      viewTipo.appendChild(viewDashboard());
-      setTimeout(() => {},10)
-      hydrateDashboardView(viewTipo)
+    case "clasificacion":
+      viewTipo.appendChild(viewClasificacion());
+      break;
+    case "registrar":
+      viewTipo.classList.add("login-main");
+      viewTipo.appendChild(viewRegistrar());
+      break;
+    case "recuperar":
+      viewTipo.classList.add("login-main");
+      viewTipo.appendChild(viewRecuperar());
+      break;
+    case "contacto":
+    case "mensaje":
+      viewTipo.appendChild(viewContacto());
       break;
     default:
       console.warn(`No se encontró una vista para el tipo "${tipo}".`);
   }
 };
-
-// Placeholders temporales para que no rompa al cambiar de ruta
-
-function viewCursosPlaceholder() {
-  const div = document.createElement("div");
-  div.textContent = "Vista de Cursos en construcción";
-  return div;
-}
-function viewPerfilPlaceholder() {
-  const div = document.createElement("div");
-  div.textContent = "Vista de Perfil en construcción";
-  return div;
-}

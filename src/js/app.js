@@ -1,50 +1,64 @@
 import { navbar } from "./componentes/navbar.js";
 import { view } from "./componentes/view.js";
 import { footer } from "./componentes/footer.js";
-import { isLoggedIn } from "../services/login.service.js";
-import { navigateTo } from "./utils/navigator.js";
-import { initUserDatabase } from "../services/login.service.js";
+import {
+  obtenerUsuarioActual,
+  haySesionIniciada,
+} from "../services/login.service.js";
+import { inicializarAlmacenamiento } from "../services/storage.service.js";
+
+inicializarAlmacenamiento();
 
 function router() {
-  const hash = window.location.hash?.split("#")[1];
+  const [hashPath = "", query = ""] = window.location.hash.slice(1).split("?", 2);
+  const route = !hashPath || hashPath === "testimonios" ? "home" : hashPath;
+  const publicRoutes = ["home", "login", "registrar", "recuperar"];
+  const protectedRoutes = [
+    "dashboard",
+    "cursos",
+    "unidades",
+    "leccion-interactiva",
+    "perfil",
+    "clasificacion",
+    "contacto",
+    "mensaje",
+  ];
 
-  // Rutas publicas
-  const publicRoutes = [undefined, "", "home", "login", "registro"];
-
-  if (!publicRoutes.includes(hash) && !isLoggedIn()) {
-    navigateTo("login");
+  if (!publicRoutes.includes(route) && !protectedRoutes.includes(route)) {
+    console.warn(`La ruta "${hashPath}" no existe; se abrirá Inicio.`);
+    window.location.hash = "#home";
     return;
   }
 
-  if (hash === "home" || !hash) {
-    if (isLoggedIn()) {
-      navigateTo("dashboard");
-      return;
-    }
-    navbar("home");
-    view("home");
-    footer("home");
-  } else if (hash === "login") {
-    if (isLoggedIn()) {
-      navigateTo("dashboard");
-      return;
-    }
-    navbar("login");
-    view("login");
-  } else if (hash === "dashboard") {
-    navbar("dashboard");
-    view("dashboard");
-  } else if (hash === "cursos") {
-    navbar("cursos");
-  } else if (hash === "perfil") {
-    navbar("perfil");
+  if (protectedRoutes.includes(route) && !haySesionIniciada()) {
+    window.location.hash = "#login";
+    return;
+  }
+
+  const params = new URLSearchParams(query);
+  if (
+    route === "leccion-interactiva" &&
+    Number(obtenerUsuarioActual()?.vidas ?? 3) <= 0
+  ) {
+    // 🛠️ CORRECCIÓN: Impide abrir una lección por URL directa cuando la cuenta se quedó sin vidas.
+    const curso = params.get("curso") || "ingles";
+    window.location.hash = `#unidades?curso=${encodeURIComponent(curso)}`;
+    return;
+  }
+
+  navbar(route);
+  view(route, params);
+  footer(route);
+
+  if (hashPath === "testimonios") {
+    requestAnimationFrame(() => {
+      const testimonials = document.getElementById("testimonios");
+      if (testimonials) {
+        testimonials.scrollIntoView();
+      }
+    });
   }
 }
 
 window.addEventListener("hashchange", router);
-window.addEventListener("DOMContentLoaded", ()=>{
-  initUserDatabase();
-  router()
-})
-
-
+window.addEventListener("DOMContentLoaded", router);

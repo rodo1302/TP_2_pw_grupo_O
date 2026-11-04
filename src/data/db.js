@@ -1,25 +1,10 @@
-export const initialDatabase = {
-  // Configuración del usuario principal por defecto (si no existe en localStorage)
-  usuarioDefault: {
-    id: 1,
-    nombre: "prueba",
-    email: "prueba@unlam.edu.ar",
-    apodo: "LingoMaster",
-    idiomaActual: "ingles",
-    nivelActual: "inicial",
-    leccionActual: {
-      nivel: "inicial",
-      leccionId: 1,
-    },
-    liga: "bronce",
-    avatar: "/src/assets/img/logo-lingo.svg",
-  },
-
+// 🛠️ CORRECCIÓN: Las rutas de imágenes deben resolverse desde index.html, donde se renderiza la SPA.
+export const baseDatosInicial = {
   // Estructura de Cursos, Niveles y Lecciones
   cursos: {
     ingles: {
       nombre: "Inglés",
-      icono: "/src/assets/img/ingles.svg",
+      icono: "./src/assets/img/ingles.svg",
       niveles: {
         inicial: [
           {
@@ -346,7 +331,7 @@ export const initialDatabase = {
     },
     aleman: {
       nombre: "Alemán",
-      icono: "/src/assets/img/aleman.svg",
+      icono: "./src/assets/img/aleman.svg",
       niveles: {
         inicial: [
           {
@@ -670,7 +655,7 @@ export const initialDatabase = {
     },
     chino: {
       nombre: "Chino",
-      icono: "/src/assets/img/chino.svg",
+      icono: "./src/assets/img/chino.svg",
       niveles: {
         inicial: [
           {
@@ -972,7 +957,7 @@ export const initialDatabase = {
     },
     portugues: {
       nombre: "Portugués",
-      icono: "/src/assets/img/liga.svg",
+      icono: "./src/assets/img/portugues.svg",
       niveles: {
         inicial: [
           {
@@ -1293,7 +1278,7 @@ export const initialDatabase = {
     },
     italiano: {
       nombre: "Italiano",
-      icono: "/src/assets/img/ligas.svg",
+      icono: "./src/assets/img/italiano.svg",
       niveles: {
         inicial: [
           {
@@ -1622,7 +1607,7 @@ export const initialDatabase = {
   },
 
   // 15 Usuarios Mock distribuidos en Ligas (Oro, Plata, Bronce) para las tablas de clasificación
-  usuariosMock: [
+  usuariosDePrueba: [
     {
       id: 2,
       nombre: "Sofía Gómez",

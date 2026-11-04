@@ -199,6 +199,69 @@ ol {
   font-style: italic;
 }
 
+.contenedor-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.progreso-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-width: 17rem;
+}
+
+.progreso-bar label {
+  white-space: nowrap;
+}
+
+.progreso-bar progress {
+  width: min(15vw, 12rem);
+  min-width: 5rem;
+  height: 0.85rem;
+  overflow: hidden;
+  appearance: none;
+  border: 2px solid var(--color-borde);
+  border-radius: 999px;
+  background-color: var(--color-borde);
+}
+
+.progreso-bar progress::-webkit-progress-bar {
+  border-radius: 999px;
+  background-color: var(--color-borde);
+}
+
+.progreso-bar progress::-webkit-progress-value {
+  border-radius: 999px;
+  background-color: var(--color-verde-exito);
+  transition: width 0.3s ease;
+}
+
+.progreso-bar progress::-moz-progress-bar {
+  border-radius: 999px;
+  background-color: var(--color-verde-exito);
+}
+
+.progreso-valor {
+  min-width: 2.5rem;
+  color: var(--color-verde-oscuro);
+  font-weight: 800;
+}
+
+.btn-salir {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  padding: 0.25rem 0.65rem;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
 .menu-enlaces {
   display: flex;
   align-items: center;
@@ -223,6 +286,17 @@ ol {
 
 .stat-item.racha strong {
   color: var(--color-rojo-fuego);
+}
+
+.stat-item.vidas {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.stat-item.vidas strong {
+  color: var(--color-rojo-oscuro);
 }
 
 .stat-item.xp strong {
@@ -314,13 +388,14 @@ ol {
    ========================================================================== */
 
 @media screen and (max-width: 768px) {
-  /* El header superior solo mantiene el Logo, Boton salir y los Indicadores */
+  /* El progreso ocupa su propia fila y conserva espacio junto a los indicadores. */
 
   .encabezado {
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-areas:
       "logo logo"
+      "nav nav"
       "btn-salir indicadores";
     justify-items: center;
     align-items: center;
@@ -331,6 +406,22 @@ ol {
   .logo-marca {
     grid-area: logo;
     justify-content: center;
+  }
+
+  .contenedor-nav {
+    grid-area: nav;
+    width: 100%;
+  }
+
+  .progreso-bar {
+    min-width: 0;
+    width: 100%;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+  }
+
+  .progreso-bar progress {
+    width: 5rem;
   }
 
   .encabezado > .btn-rojo {
