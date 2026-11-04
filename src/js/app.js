@@ -4,13 +4,16 @@ import { footer } from "./componentes/footer.js";
 import {
   obtenerUsuarioActual,
   haySesionIniciada,
+  cerrarSesion,
 } from "../services/login.service.js";
 import { inicializarAlmacenamiento } from "../services/storage.service.js";
 
 inicializarAlmacenamiento();
 
 function router() {
-  const [hashPath = "", query = ""] = window.location.hash.slice(1).split("?", 2);
+  const [hashPath = "", query = ""] = window.location.hash
+    .slice(1)
+    .split("?", 2);
   const route = !hashPath || hashPath === "testimonios" ? "home" : hashPath;
   const publicRoutes = ["home", "login", "registrar", "recuperar"];
   const protectedRoutes = [
@@ -23,6 +26,22 @@ function router() {
     "contacto",
     "mensaje",
   ];
+
+  //Comprueba que si hay una sesion iniciada y
+  // el usuario intenta ir a #login o #home
+
+  if (haySesionIniciada() && (route === "login" || route === "home")) {
+    const cerrar = window.confirm(
+      "Ya hay una sesión iniciada. ¿Desea cerrar la sesión?",
+    );
+    if (cerrar) {
+      cerrarSesion();
+      return;
+    } else {
+      window.location.hash = "#dashboard";
+      return;
+    }
+  }
 
   if (!publicRoutes.includes(route) && !protectedRoutes.includes(route)) {
     console.warn(`La ruta "${hashPath}" no existe; se abrirá Inicio.`);
