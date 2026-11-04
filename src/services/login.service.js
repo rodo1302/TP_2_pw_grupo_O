@@ -1,5 +1,3 @@
-import { USER_SEED } from "../data/seed.js";
-
 export const isLoggedIn = () => {
   return localStorage.getItem("isLoggedIn") === "true";
 };
@@ -47,25 +45,6 @@ export const logoutUser = () => {
   window.location.href = "#home"; // Redirige al inicio de sesión
 };
 
-export const initUserDatabase = () => {
-  const users = JSON.parse(localStorage.getItem("users"));
-
-  if (!users || users.length === 0) {
-    console.log("No se encontraron usuarios. Cargando usuario inicial...");
-
-    // Creamos un array con el usuario semilla
-    const initialUsers = [USER_SEED];
-
-    localStorage.setItem("users", JSON.stringify(initialUsers));
-
-    // Opcionalmente, podemos iniciar sesión automáticamente con este usuario
-    localStorage.setItem("currentUser", USER_SEED.nombre);
-
-    return true; // Se cargó la semilla
-  }
-
-  return false; // Ya había usuarios
-};
 import { crearProgresoInicial } from "./storage.service.js";
 
 // 🛠️ CORRECCIÓN: Centraliza la lectura de usuarios para evitar excepciones de JSON corrupto y validar la estructura antes de usarla.
