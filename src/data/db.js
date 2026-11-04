@@ -12,14 +12,14 @@ export const initialDatabase = {
       leccionId: 1,
     },
     liga: "bronce",
-    avatar: "../img/logo-lingo.svg",
+    avatar: "/src/assets/img/logo-lingo.svg",
   },
 
   // Estructura de Cursos, Niveles y Lecciones
   cursos: {
     ingles: {
       nombre: "Inglés",
-      icono: "../img/ingles.svg",
+      icono: "/src/assets/img/ingles.svg",
       niveles: {
         inicial: [
           {
@@ -346,7 +346,7 @@ export const initialDatabase = {
     },
     aleman: {
       nombre: "Alemán",
-      icono: "../img/aleman.svg",
+      icono: "/src/assets/img/aleman.svg",
       niveles: {
         inicial: [
           {
@@ -670,7 +670,7 @@ export const initialDatabase = {
     },
     chino: {
       nombre: "Chino",
-      icono: "../img/chino.svg",
+      icono: "/src/assets/img/chino.svg",
       niveles: {
         inicial: [
           {
@@ -972,7 +972,7 @@ export const initialDatabase = {
     },
     portugues: {
       nombre: "Portugués",
-      icono: "../img/liga.svg",
+      icono: "/src/assets/img/liga.svg",
       niveles: {
         inicial: [
           {
@@ -1293,7 +1293,7 @@ export const initialDatabase = {
     },
     italiano: {
       nombre: "Italiano",
-      icono: "../img/ligas.svg",
+      icono: "/src/assets/img/ligas.svg",
       niveles: {
         inicial: [
           {

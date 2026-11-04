@@ -8,14 +8,14 @@ export const navbar = (tipo) => {
 
   headerTipo.replaceChildren();
 
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUser = localStorage.getItem("currentUser");
 
   switch (tipo) {
     case "home":
       headerTipo.appendChild(navbarHome());
       break;
     case "dashboard":
-      headerTipo.appendChild(navbarMain(currentUser));
+      // headerTipo.appendChild(navbarMain(currentUser));
       break;
     case "cursos":
       headerTipo.appendChild(navbarCursos(currentUser));

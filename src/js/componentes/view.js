@@ -1,13 +1,15 @@
 import { viewHome } from "../views/home.view.js";
+import { viewLogin, hydrateLoginView } from "../views/login.view.js";
+import { hydrateDashboardView, viewDashboard } from "../views/dashboard.view.js";
 
 export const view = (tipo) => {
-  // let css = document.querySelector("#viewStyles");
-  // if (!css) {
-  //   css = document.createElement("link");
-  //   css.id = "viewStyles";
-  //   css.rel = "stylesheet";
-  // }
-
+  let css = document.querySelector("#viewStyles");
+  if (!css) {
+    css = document.createElement("link");
+    css.id = "viewStyles";
+    css.rel = "stylesheet";
+    document.head.appendChild(css);
+  }
   const viewTipo = document.querySelector(`#app`);
 
   if (!viewTipo) {
@@ -20,12 +22,15 @@ export const view = (tipo) => {
 
   switch (tipo) {
     case "home":
-      // css.href = "./src/assets/css/viewhome/view.css";
+      css.href = "./src/assets/css/viewhome/view.css";
       viewTipo.classList.add("home-page");
       viewTipo.appendChild(viewHome());
+      // hydrateHomeView(viewTipo); //hidrata todos los elementos interactivos de la vista home
       break;
     case "login":
-      viewTipo.appendChild(viewLoginPlaceholder());
+      css.href = "./src/assets/css/viewlogin/view.css";
+      viewTipo.appendChild(viewLogin());
+      hydrateLoginView(viewTipo); //hidrata todos los elementos interactivos de la vista login
       break;
     case "cursos":
       viewTipo.appendChild(viewCursosPlaceholder());
@@ -34,8 +39,11 @@ export const view = (tipo) => {
       viewTipo.appendChild(viewPerfilPlaceholder());
       break;
     case "dashboard":
-      viewTipo.classList.add("dashboard-view");
-      viewTipo.appendChild(viewDashboardPlaceholder());
+      css.href = "./src/assets/css/viewdashboard/view.css";
+      viewTipo.classList.add("dashboard-layout");
+      viewTipo.appendChild(viewDashboard());
+      setTimeout(() => {},10)
+      hydrateDashboardView(viewTipo)
       break;
     default:
       console.warn(`No se encontró una vista para el tipo "${tipo}".`);
@@ -43,11 +51,7 @@ export const view = (tipo) => {
 };
 
 // Placeholders temporales para que no rompa al cambiar de ruta
-function viewLoginPlaceholder() {
-  const div = document.createElement("div");
-  div.textContent = "Vista de Login en construcción";
-  return div;
-}
+
 function viewCursosPlaceholder() {
   const div = document.createElement("div");
   div.textContent = "Vista de Cursos en construcción";
@@ -56,10 +60,5 @@ function viewCursosPlaceholder() {
 function viewPerfilPlaceholder() {
   const div = document.createElement("div");
   div.textContent = "Vista de Perfil en construcción";
-  return div;
-}
-function viewDashboardPlaceholder() {
-  const div = document.createElement("div");
-  div.textContent = "Vista de Dashboard en construcción";
   return div;
 }
