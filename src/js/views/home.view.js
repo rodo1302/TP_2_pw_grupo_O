@@ -1,83 +1,130 @@
-// import { preventNavigationDefault } from ;
-export const viewHome = () => {
-    // Range.createContextualFragment convierte el string HTML a DocumentFragment
-    const htmlString = `
-          <section class="hero">
-        <div class="hero__copy">
-          <p class="eyebrow">Aprender idiomas, sin presión</p>
-          <h1>Tu camino hacia hablar con confianza empieza aquí.</h1>
-          <p class="hero__text">
-            Lecciones breves, desafíos diarios y un progreso que se siente real.
-            Domina inglés, alemán o chino con una experiencia divertida, clara y efectiva.
-          </p>
+export function viewHome() {
+  const fragmento = document.createDocumentFragment();
+  // 🛠️ CORRECCIÓN: Construye la vista con nodos DOM para no interpretar contenido como HTML.
 
-          <div class="hero__actions">
-            <a href="#registro" class="btn btn-verde">¡Comenzar ahora!</a>
-            <a href="#testimonios" class="btn btn-rojo">Ver opiniones</a>
-          </div>
-        </div>
+  const portada = document.createElement("section");
+  portada.classList.add("hero");
+  const textoPortada = document.createElement("div");
+  textoPortada.classList.add("hero__copy");
 
-        <div class="hero__visual">
-          <img src="./img/logo-lingo.svg" alt="Mascota de LingoPanda" class="mascot-image" />
-        </div>
-      </section>
+  const etiquetaPortada = document.createElement("p");
+  etiquetaPortada.classList.add("eyebrow");
+  etiquetaPortada.textContent = "Aprender idiomas, sin presión";
+  const tituloPortada = document.createElement("h1");
+  tituloPortada.textContent =
+    "Tu camino hacia hablar con confianza empieza aquí.";
+  const descripcionPortada = document.createElement("p");
+  descripcionPortada.classList.add("hero__text");
+  descripcionPortada.textContent =
+    "Lecciones breves, desafíos diarios y un progreso que se siente real. Domina inglés, alemán o chino con una experiencia divertida, clara y efectiva.";
+  const accionesPortada = document.createElement("div");
+  accionesPortada.classList.add("hero__actions");
+  const enlaceInicioSesion = document.createElement("a");
+  enlaceInicioSesion.href = "#login";
+  enlaceInicioSesion.classList.add("btn", "btn-verde");
+  enlaceInicioSesion.textContent = "¡Comenzar ahora!";
+  const enlaceTestimonios = document.createElement("a");
+  enlaceTestimonios.href = "#testimonios";
+  enlaceTestimonios.classList.add("btn", "btn-rojo");
+  enlaceTestimonios.textContent = "Ver opiniones";
+  accionesPortada.appendChild(enlaceInicioSesion);
+  accionesPortada.appendChild(enlaceTestimonios);
+  textoPortada.appendChild(etiquetaPortada);
+  textoPortada.appendChild(tituloPortada);
+  textoPortada.appendChild(descripcionPortada);
+  textoPortada.appendChild(accionesPortada);
 
-      <section id="testimonios" class="panel-section">
-        <div class="section-heading">
-          <p class="eyebrow">Prueba social</p>
-          <h2>Más de 30.000 estudiantes ya están aprendiendo</h2>
-        </div>
+  const imagenPortada = document.createElement("div");
+  imagenPortada.classList.add("hero__visual");
+  const mascota = document.createElement("img");
+  mascota.src = "./src/assets/img/logo-lingo.svg";
+  mascota.alt = "Mascota de LingoPanda";
+  mascota.classList.add("mascot-image");
+  imagenPortada.appendChild(mascota);
+  portada.appendChild(textoPortada);
+  portada.appendChild(imagenPortada);
+  fragmento.appendChild(portada);
 
-        <div class="testimonials-grid">
-          <article class="testimonial-card">
-            <div class="stars" aria-label="Cinco estrellas">★★★★★</div>
-            <p>
-              “La experiencia es súper clara y motivadora. He avanzado muchísimo
-              en inglés en solo unas semanas.”
-            </p>
-            <div class="person">
-              <strong>María S.</strong>
-              <span>Estudiante de inglés</span>
-            </div>
-          </article>
+  const seccionTestimonios = document.createElement("section");
+  seccionTestimonios.id = "testimonios";
+  seccionTestimonios.classList.add("panel-section");
+  const encabezadoTestimonios = document.createElement("div");
+  encabezadoTestimonios.classList.add("section-heading");
+  const etiquetaSocial = document.createElement("p");
+  etiquetaSocial.classList.add("eyebrow");
+  etiquetaSocial.textContent = "Prueba social";
+  const tituloSocial = document.createElement("h2");
+  tituloSocial.textContent = "Más de 30.000 estudiantes ya están aprendiendo";
+  encabezadoTestimonios.appendChild(etiquetaSocial);
+  encabezadoTestimonios.appendChild(tituloSocial);
 
-          <article class="testimonial-card">
-            <div class="stars" aria-label="Cinco estrellas">★★★★★</div>
-            <p>
-              “Me encanta la estructura de las lecciones. Puedo estudiar en
-              cualquier momento sin sentir que es pesado.”
-            </p>
-            <div class="person">
-              <strong>Lucas R.</strong>
-              <span>Aprendiz de alemán</span>
-            </div>
-          </article>
+  const grillaTestimonios = document.createElement("div");
+  grillaTestimonios.classList.add("testimonials-grid");
+  const testimonios = [
+    {
+      comentario:
+        "“La experiencia es súper clara y motivadora. He avanzado muchísimo en inglés en solo unas semanas.”",
+      nombre: "María S.",
+      curso: "Estudiante de inglés",
+    },
+    {
+      comentario:
+        "“Me encanta la estructura de las lecciones. Puedo estudiar en cualquier momento sin sentir que es pesado.”",
+      nombre: "Lucas R.",
+      curso: "Aprendiz de alemán",
+    },
+    {
+      comentario:
+        "“El enfoque de retos diarios me ayuda a mantener constancia. La motivación está siempre presente.”",
+      nombre: "Yuna C.",
+      curso: "Estudiante de chino",
+    },
+  ];
 
-          <article class="testimonial-card">
-            <div class="stars" aria-label="Cinco estrellas">★★★★★</div>
-            <p>
-              “El enfoque de retos diarios me ayuda a mantener constancia. La
-              motivación está siempre presente.”
-            </p>
-            <div class="person">
-              <strong>Yuna C.</strong>
-              <span>Estudiante de chino</span>
-            </div>
-          </article>
-        </div>
-      </section>
+  testimonios.forEach((testimonio) => {
+    const tarjetaTestimonio = document.createElement("article");
+    tarjetaTestimonio.classList.add("testimonial-card");
+    const estrellas = document.createElement("div");
+    estrellas.classList.add("stars");
+    estrellas.setAttribute("aria-label", "Cinco estrellas");
+    estrellas.textContent = "★★★★★";
+    const comentario = document.createElement("p");
+    comentario.textContent = testimonio.comentario;
+    const persona = document.createElement("div");
+    persona.classList.add("person");
+    const nombre = document.createElement("strong");
+    nombre.textContent = testimonio.nombre;
+    const descripcionCurso = document.createElement("span");
+    descripcionCurso.textContent = testimonio.curso;
+    persona.appendChild(nombre);
+    persona.appendChild(descripcionCurso);
+    tarjetaTestimonio.appendChild(estrellas);
+    tarjetaTestimonio.appendChild(comentario);
+    tarjetaTestimonio.appendChild(persona);
+    grillaTestimonios.appendChild(tarjetaTestimonio);
+  });
+  seccionTestimonios.appendChild(encabezadoTestimonios);
+  seccionTestimonios.appendChild(grillaTestimonios);
+  fragmento.appendChild(seccionTestimonios);
 
-      <section class="cta-band">
-        <div>
-          <p class="eyebrow">Tu idioma te espera</p>
-          <h2>Comienza hoy y construye tu próxima habilidad.</h2>
-        </div>
-        <a href="#registro" class="btn btn-verde">Inscribirme gratis</a>
-      </section>
-          `
-    return document.createRange().createContextualFragment(htmlString)
+  const llamadoAccion = document.createElement("section");
+  llamadoAccion.classList.add("cta-band");
+  const textoLlamadoAccion = document.createElement("div");
+  const etiquetaLlamadoAccion = document.createElement("p");
+  etiquetaLlamadoAccion.classList.add("eyebrow");
+  etiquetaLlamadoAccion.textContent = "Tu idioma te espera";
+  const tituloLlamadoAccion = document.createElement("h2");
+  tituloLlamadoAccion.textContent =
+    "Comienza hoy y construye tu próxima habilidad.";
+  textoLlamadoAccion.appendChild(etiquetaLlamadoAccion);
+  textoLlamadoAccion.appendChild(tituloLlamadoAccion);
+  const enlaceRegistro = document.createElement("a");
+  enlaceRegistro.href = "#registrar";
+  enlaceRegistro.classList.add("btn", "btn-verde");
+  enlaceRegistro.textContent = "Inscribirme gratis";
+  llamadoAccion.appendChild(textoLlamadoAccion);
+  llamadoAccion.appendChild(enlaceRegistro);
+  fragmento.appendChild(llamadoAccion);
+
+  return fragmento;
 }
-
-export const hydrateHomeView = (view) => {
-    // const enlaces = preventNavigationDefault(view);
-};

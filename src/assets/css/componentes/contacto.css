@@ -23,7 +23,7 @@
 }
 
 /* Alineación para el label del textarea en la parte superior */
-.formulario label[for="mensaje"] {
+.formulario label[for="mensaje-texto"] {
   align-self: start;
   padding-top: 0.5rem;
 }
@@ -81,6 +81,10 @@
 
 /* Cuando el ID #mensaje está activo en la URL, cambia a flex/block */
 .vista-mensaje:target {
+  display: flex;
+}
+
+.vista-mensaje.mostrar {
   display: flex;
 }
 

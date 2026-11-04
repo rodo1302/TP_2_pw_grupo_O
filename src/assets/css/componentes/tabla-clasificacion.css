@@ -7,7 +7,7 @@ body {
   /* overflow: hidden; */
 }
 
-.contendeor-principal {
+.contenedor-principal {
   display: flex;
   flex: 1;
   flex-direction: column;

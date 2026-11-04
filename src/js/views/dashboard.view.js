@@ -1,94 +1,153 @@
-import { initialDatabase } from "../../data/db.js";
-import { getLoggedUser } from "../../services/login.service.js";
-import { enlaceTarjeta } from "../componentes/enlaceTarjeta.js";
+import {
+  datosCursos,
+  obtenerProgresoCurso,
+} from "../../services/storage.service.js";
+import { obtenerUsuarioActual } from "../../services/login.service.js";
 
-export const viewDashboard = () => {
-  // Range.createContextualFragment convierte el string HTML a DocumentFragment
-  const htmlString = `
-    <section class="seccion-cursos">
-      <h2>Mis Cursos</h2>
-      <div id="tarjetas" class="contenedor-tarjetas">
+export function viewDashboard() {
+  const fragmento = document.createDocumentFragment();
+  // 🛠️ CORRECCIÓN: Construye la vista con nodos DOM para no interpretar contenido como HTML.
+  const usuarioActual = obtenerUsuarioActual() || {
+    xp: 350,
+    liga: "bronce",
+    idiomaActual: "ingles",
+    nivelActual: "inicial",
+  };
 
-        <!-- <a href="../unidades/ingles.html" class="enlace-tarjeta">
-          <article class="tarjeta-curso">
-            <input type="checkbox" name="ingles" id="ingles" class="disable">
-            <label for="ingles" class="btn btn-rojo btn-chk">-</label>
-            <img src="/src/assets/img/ingles.svg" alt="Brazón de Inglaterra" class="img-bandera">
-            <div class="info-curso">
-              <h3>Inglés</h3>
-              <p><strong>Progreso:</strong> 45%</p>
-              <p><strong>Nivel:</strong> Intermedio (B1)</p>
-            </div>
-          </article>
-        </a>
+  const panel = document.createElement("section");
+  panel.classList.add("dashboard-layout");
+  const seccionCursos = document.createElement("section");
+  seccionCursos.classList.add("seccion-cursos");
+  const tituloCursos = document.createElement("h2");
+  tituloCursos.textContent = "Mis Cursos";
+  const tarjetasCursos = document.createElement("div");
+  tarjetasCursos.classList.add("contenedor-tarjetas");
 
-        <a href="#unidadesAleman" class="enlace-tarjeta">
-          <article class="tarjeta-curso">
-            <input type="checkbox" name="aleman" id="aleman" class="disable">
-            <label for="aleman" class="btn btn-rojo btn-chk">-</label>
-            <img src="/src/assets/img/aleman.svg" alt="Bandera de Alemania" class="img-bandera">
-            <div class="info-curso">
-              <h3>Alemán</h3>
-              <p><strong>Progreso:</strong> 12%</p>
-              <p><strong>Nivel:</strong> Principiante (A1)</p>
-            </div>
-          </article>
-        </a>
+  Object.entries(datosCursos).forEach(([clave, curso]) => {
+    const tarjetaCurso = document.createElement("div");
+    tarjetaCurso.classList.add("enlace-tarjeta");
 
-        <a href="../unidades/chino.html" class="enlace-tarjeta">
-          <article class="tarjeta-curso">
-            <input type="checkbox" name="chino" id="chino" class="disable">
-            <label for="chino" class="btn btn-rojo btn-chk">-</label>
-            <img src="/src/assets/img/chino.svg" alt="Bandera de China" class="img-bandera">
-            <div class="info-curso">
-              <h3>Chino</h3>
-              <p><strong>Progreso:</strong> 0%</p>
-              <p><strong>Nivel:</strong> Inicial (HSK 1)</p>
-            </div>
-          </article>
-        </a> -->
+    const casillaOcultar = document.createElement("input");
+    casillaOcultar.type = "checkbox";
+    casillaOcultar.name = clave;
+    casillaOcultar.id = `curso-${clave}`;
+    casillaOcultar.classList.add("disable");
 
-        <input type="checkbox" name="mostrar" id="mostrar" class="mostrar-cursos">
-        <label for="mostrar" class="btn btn-mostrar-cursos">Mostrar cursos</label>
-      </div>
-    </section>
+    const etiquetaOcultar = document.createElement("label");
+    etiquetaOcultar.htmlFor = `curso-${clave}`;
+    etiquetaOcultar.classList.add("btn", "btn-rojo", "btn-chk");
+    etiquetaOcultar.setAttribute("aria-label", `Ocultar curso ${curso.nombre}`);
+    etiquetaOcultar.textContent = "-";
 
-    <!-- Barra lateral de estadísticas -->
-    <aside class="panel-lateral">
-      <div class="tarjeta-resumen">
-        <h2>Estadísticas</h2>
+    const enlaceCurso = document.createElement("a");
+    enlaceCurso.href = `#unidades?curso=${encodeURIComponent(clave)}`;
+    enlaceCurso.classList.add("curso-enlace");
+    const contenidoTarjeta = document.createElement("article");
+    contenidoTarjeta.classList.add("tarjeta-curso");
+    const banderaCurso = document.createElement("img");
+    banderaCurso.src = curso.icono;
+    banderaCurso.alt = `Bandera de ${curso.nombre}`;
+    banderaCurso.classList.add("img-bandera");
 
-        <div class="item-estadistica">
-          <img src="/src/assets/img/liga.svg" alt="Icono de Liga" class="img-icono-aside">
-          <div>
-            <span class="subtitulo">Liga actual</span>
-            <p class="valor-destacado">Liga Bronce</p>
-          </div>
-        </div>
+    const infoCurso = document.createElement("div");
+    infoCurso.classList.add("info-curso");
+    const nombreCurso = document.createElement("h3");
+    nombreCurso.textContent = curso.nombre;
+    const infoProgreso = document.createElement("p");
+    const etiquetaProgreso = document.createElement("strong");
+    etiquetaProgreso.textContent = "Progreso:";
+    const progresoCurso = obtenerProgresoCurso(usuarioActual, clave);
+    infoProgreso.appendChild(etiquetaProgreso);
+    infoProgreso.appendChild(
+      document.createTextNode(` ${progresoCurso.porcentaje}%`),
+    );
 
-        <div class="item-estadistica">
-          <img src="/src/assets/img/meta.svg" alt="Icono de Meta" class="img-icono-aside">
-          <div>
-            <span class="subtitulo">Meta diaria</span>
-            <p class="valor-destacado">50 XP / día</p>
-          </div>
-        </div>
-      </div>
-    </aside>
-    `
-  return document.createRange().createContextualFragment(htmlString)
-}
+    const infoNivel = document.createElement("p");
+    const etiquetaNivel = document.createElement("strong");
+    etiquetaNivel.textContent = "Nivel:";
+    const esCursoActivo = usuarioActual.idiomaActual === clave;
+    const nivelActual = esCursoActivo ? progresoCurso.nivel : "Principiante";
+    const nivelFormateado =
+      nivelActual.charAt(0).toUpperCase() + nivelActual.slice(1);
+    infoNivel.appendChild(etiquetaNivel);
+    infoNivel.appendChild(document.createTextNode(` ${nivelFormateado}`));
+    infoCurso.appendChild(nombreCurso);
+    infoCurso.appendChild(infoProgreso);
+    infoCurso.appendChild(infoNivel);
 
-export const hydrateDashboardView = (view) => {
-  const usuario = getLoggedUser();
-  if (!usuario) return;
-  const contenedorTarjetas = view.querySelector("#tarjetas");
-  const tarjetasCursos = []
-
-  Object.entries(initialDatabase.cursos).forEach(([codCurso, cursoData]) => {
-    const curso = { codCurso, ...cursoData };
-    const tarjeta = enlaceTarjeta(curso, usuario);
-    tarjetasCursos.push(tarjeta)
+    contenidoTarjeta.appendChild(banderaCurso);
+    contenidoTarjeta.appendChild(infoCurso);
+    enlaceCurso.appendChild(contenidoTarjeta);
+    tarjetaCurso.appendChild(casillaOcultar);
+    tarjetaCurso.appendChild(etiquetaOcultar);
+    tarjetaCurso.appendChild(enlaceCurso);
+    tarjetasCursos.appendChild(tarjetaCurso);
   });
-  contenedorTarjetas.prepend(...tarjetasCursos);
-};
+
+  const casillaMostrar = document.createElement("input");
+  casillaMostrar.type = "checkbox";
+  casillaMostrar.name = "mostrar";
+  casillaMostrar.id = "mostrar";
+  casillaMostrar.classList.add("mostrar-cursos");
+  const etiquetaMostrar = document.createElement("label");
+  etiquetaMostrar.htmlFor = "mostrar";
+  etiquetaMostrar.classList.add("btn", "btn-mostrar-cursos");
+  etiquetaMostrar.textContent = "Mostrar cursos";
+  tarjetasCursos.appendChild(casillaMostrar);
+  tarjetasCursos.appendChild(etiquetaMostrar);
+  seccionCursos.appendChild(tituloCursos);
+  seccionCursos.appendChild(tarjetasCursos);
+
+  const sidebar = document.createElement("aside");
+  sidebar.classList.add("panel-lateral");
+  const resumen = document.createElement("div");
+  resumen.classList.add("tarjeta-resumen");
+  const tituloResumen = document.createElement("h2");
+  tituloResumen.textContent = "Estadísticas";
+
+  const elementoLiga = document.createElement("div");
+  elementoLiga.classList.add("item-estadistica");
+  const iconoLiga = document.createElement("img");
+  iconoLiga.src = "./src/assets/img/liga.svg";
+  iconoLiga.alt = "Icono de Liga";
+  iconoLiga.classList.add("img-icono-aside");
+  const infoLiga = document.createElement("div");
+  const subtituloLiga = document.createElement("span");
+  subtituloLiga.classList.add("subtitulo");
+  subtituloLiga.textContent = "Liga actual";
+  const valorLiga = document.createElement("p");
+  valorLiga.classList.add("valor-destacado");
+  const liga = usuarioActual.liga || "bronce";
+  valorLiga.textContent = `Liga ${liga.charAt(0).toUpperCase() + liga.slice(1)}`;
+  infoLiga.appendChild(subtituloLiga);
+  infoLiga.appendChild(valorLiga);
+  elementoLiga.appendChild(iconoLiga);
+  elementoLiga.appendChild(infoLiga);
+
+  const elementoMeta = document.createElement("div");
+  elementoMeta.classList.add("item-estadistica");
+  const iconoMeta = document.createElement("img");
+  iconoMeta.src = "./src/assets/img/meta.svg";
+  iconoMeta.alt = "Icono de Meta";
+  iconoMeta.classList.add("img-icono-aside");
+  const infoMeta = document.createElement("div");
+  const subtituloMeta = document.createElement("span");
+  subtituloMeta.classList.add("subtitulo");
+  subtituloMeta.textContent = "Meta diaria";
+  const valorMeta = document.createElement("p");
+  valorMeta.classList.add("valor-destacado");
+  valorMeta.textContent = "50 XP / día";
+  infoMeta.appendChild(subtituloMeta);
+  infoMeta.appendChild(valorMeta);
+  elementoMeta.appendChild(iconoMeta);
+  elementoMeta.appendChild(infoMeta);
+
+  resumen.appendChild(tituloResumen);
+  resumen.appendChild(elementoLiga);
+  resumen.appendChild(elementoMeta);
+  sidebar.appendChild(resumen);
+  panel.appendChild(seccionCursos);
+  panel.appendChild(sidebar);
+  fragmento.appendChild(panel);
+  return fragmento;
+}
